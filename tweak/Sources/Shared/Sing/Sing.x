@@ -224,9 +224,7 @@ static NSString *const kNotASong = @"Karaoke turns down the vocals of songs, and
 static BOOL sg_elsewhere;         // Spotify plays and its music output has not rendered for 3 s (tick)
 static BOOL readRefusal(void) {
     NSString *refused = nil;
-    for (AVAudioSessionPortDescription *port in AVAudioSession.sharedInstance.currentRoute.outputs) {
-        if ([port.portType isEqualToString:AVAudioSessionPortAirPlay]) refused = kOverAirPlay;
-    }
+    
     if (!refused && sg_elsewhere) refused = kElsewhere;
     NSString *uri = SGURIString(SGPlayerState().track.URI);
     if (!refused && uri && ![uri hasPrefix:@"spotify:track:"] && ![uri hasPrefix:@"spotify:local:"]) refused = kNotASong;
